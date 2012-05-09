@@ -1,0 +1,25 @@
+#! /bin/bash
+
+num=4
+if [ $# -ge 1 ]; then
+	num=$1
+fi
+cpys=2
+if [ $num -ge 4 ]; then
+	cpys=3
+fi
+
+#drv="-c zookeeper:127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183"
+drv="-c zookeeper:127.0.0.1:2181"
+
+rm -rf /store/*
+sheep -d /store/0 -z 0 -p 7000 $drv;
+sleep 2
+for (( i=1; i<=$num; i++  )); 
+do 
+	sheep -d /store/$i -z $i -p $((7000 + $i)) $drv;
+done
+chmod -R 0755 /store/*
+collie cluster format -c $cpys
+#qemu-img create -f raw sheepdog:test 10M
+#collie vdi create sheepdog:test 10 M

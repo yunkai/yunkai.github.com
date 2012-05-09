@@ -1,0 +1,24 @@
+#===Begin .screenrc===
+unsetenv DISPLAY
+autodetach            on              # default: on
+crlf                  off             # default: off
+deflogin              off             # default: on
+hardcopy_append       on              # default: off
+startup_message       off             # default: on
+vbell                 off             # default: ???
+defscrollback         10000           # default: 100
+msgminwait            0               # default: 1
+msgwait               0               # default: 5
+silencewait           15              # default: 30
+shelltitle '$ |bash'      #这么配置.bashrc 的一句 PROMPT_COMMAND='echo -n -e "\034k`hostname`\033\\"'  可以将 screen登陆的机器名自动命名screen窗口上
+#caption always "%{+b yk}%H %{wk}|%c %{bk}%d.%m.%Y %{wk}| %{rk}%72=Load: %l%{wk}"
+hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
+sorendition    kG # black on bold green
+activity              "%C -> %n%f %t activity!"
+bell                  "%C -> %n%f %t bell!~"
+pow_detach_msg        "BYE"
+vbell_msg             " *beep* "
+
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+#===End .screenrc===

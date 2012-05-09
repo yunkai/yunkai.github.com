@@ -1,0 +1,47 @@
+Coding for Dream
+================
+Yunkai Zhang <yunkai.me@gmail.com>
+
+Some Projects I foucs
+---------------------
+
+Sheepdog
+~~~~~~~~
+https://github.com/collie/sheepdog/wiki[Sheepdog] is a distributed storage
+system which have been used in taobao.com.
+
+- git://github.com/collie/sheepdog.git
+
+Corosync
+~~~~~~~~
+http://www.corosync.org[Corosync] is a Group Communication System with
+additional features for implementing high availability within applications.
+Sheepdog uses Corosync as its distributed communication system.
+
+- git clone git://github.com/corosync/corosync.git
+
+
+My favorite tools
+-----------------
+
+Vimium
+~~~~~~
+http://vimium.github.com/[Vimium] provides keyboard shortcuts for navigation
+
+- git clone https://github.com/philc/vimium.git
+
+Asciidoc
+~~~~~~~~
+http://www.methods.co.nz/asciidoc/[Asciidoc] is a text document format for
+writing slideshows
+
+- hg clone https://code.google.com/p/asciidoc/
+
+NOTE: asciidoc depends on docbook-dtds, before compile it we should: +
+yum install docbook-dtds
+
+Who am I
+--------
+A linux programer working at taobao.com. +
+
+You can get more information from my https://plus.google.com/114670895059846153591/about[Google+].

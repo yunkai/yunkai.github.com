@@ -1,0 +1,11 @@
+set envelope_from=yes
+set sendmail="/usr/sbin/exim4"
+set from="yunkai.me@gmail.com"
+set realname="Yunkai Zhang"
+set use_from=yes
+set include 
+set indent_str="> "
+set sort=threads
+set sort_aux=last-date-sent
+subscribe sheepdog@lists.wpkg.org
+set index_format="%5C %Z %{%b %d} %-15.15n (%2e-%2E) %s"

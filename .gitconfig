@@ -1,0 +1,18 @@
+[user]
+	name = Yunkai Zhang
+	email = qiushu.zyk@taobao.com
+[sendemail]
+	smtpencryption = tls 
+	smtpserverport = 587
+	smtpserver = smtp.gmail.com
+	smtpuser = yunkai.me@gmail.com
+	from = Yunkai Zhang <yunkai.me@gmail.com>
+	#suppressfrom = true
+	suppresscc = sob
+	suppresscc = author
+	confirm = always
+[core]
+	editor = vim
+	quotepath = false
+[format]
+	signoff = true

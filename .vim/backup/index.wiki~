@@ -1,0 +1,12 @@
+= My knowledge base =
+* [[My Urgent Tasks]] -- things to be done _yesterday_!!!
+* [[Project Gutenberg]] -- good books are power.
+* [[Scratch Pad]] -- various temporary stuff.
+
+= My favorite tools =
+* [[https://code.google.com/p/vimwiki/ | Vimwiki]] -- Vimwiki is a personal wiki for Vim
+	- `hg clone https://code.google.com/p/vimwiki/` 
+* [[http://vimium.github.com/ | Vimium]] -- Vimium provides keyboard shortcuts for navigation
+	- `git clone https://github.com/philc/vimium.git `
+* [[http://www.methods.co.nz/asciidoc/ | Asciidoc]] -- AsciiDoc is a text document format for writing slideshows
+	- `hg clone https://code.google.com/p/asciidoc/`

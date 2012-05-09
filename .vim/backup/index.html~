@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">My knowledge base</h1>
+<ul>
+<li>
+<a href="My Urgent Tasks.html">My Urgent Tasks</a> -- things to be done <em>yesterday</em>!!!
+
+<li>
+<a href="Project Gutenberg.html">Project Gutenberg</a> -- good books are power.
+
+<li>
+<a href="Scratch Pad.html">Scratch Pad</a> -- various temporary stuff.
+
+</ul>
+
+<h1 id="toc_2">My favorite tools</h1>
+<ul>
+<li>
+[ <a href="http://www.google.com">http://www.google.com</a> Google]
+
+</ul>
+
+</body>
+</html>

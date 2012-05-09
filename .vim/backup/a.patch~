@@ -1,0 +1,177 @@
+                                                                                                                                                                                                                                                               
+Delivered-To: yunkai.me@gmail.com
+Received: by 10.52.77.4 with SMTP id o4csp229000vdw;
+        Tue, 8 May 2012 08:02:34 -0700 (PDT)
+Received: by 10.224.27.5 with SMTP id g5mr32148397qac.2.1336489354236;
+        Tue, 08 May 2012 08:02:34 -0700 (PDT)
+Return-Path: <BATV+63c54800cbd88b86864c+3180+infradead.org+hch@bombadil.srs.infradead.org>
+Received: from bombadil.infradead.org (173-166-109-252-newengland.hfc.comcastbusiness.net. [173.166.109.252])
+        by mx.google.com with ESMTPS id es10si2257326qab.103.2012.05.08.08.02.33
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Tue, 08 May 2012 08:02:33 -0700 (PDT)
+Received-SPF: neutral (google.com: 173.166.109.252 is neither permitted nor denied by best guess record for domain of BATV+63c54800cbd88b86864c+3180+infradead.org+hch@bombadil.srs.infradead.org) client-ip=173.166.109.252;
+Authentication-Results: mx.google.com; spf=neutral (google.com: 173.166.109.252 is neither permitted nor denied by best guess record for domain of BATV+63c54800cbd88b86864c+3180+infradead.org+hch@bombadil.srs.infradead.org) smtp.mail=BATV+63c54800cbd88b86864c+3180+infradead.org+hch@bombadil.srs.infradead.org
+Received: from hch by bombadil.infradead.org with local (Exim 4.76 #1 (Red Hat Linux))
+	id 1SRlvs-0003Y5-He; Tue, 08 May 2012 15:02:32 +0000
+Date: Tue, 8 May 2012 11:02:32 -0400
+From: Christoph Hellwig <hch@infradead.org>
+To: Yunkai Zhang <yunkai.me@gmail.com>
+Cc: Christoph Hellwig <hch@infradead.org>, sheepdog@lists.wpkg.org
+Subject: Re: [Sheepdog] [PATCH] sheep: fix race on sys->pending_list
+Message-ID: <20120508150232.GA27435@infradead.org>
+References: <1336468900-9136-1-git-send-email-yunkai.me@gmail.com>
+ <20120508114906.GC31697@infradead.org>
+ <CAGEauyQ78jjGtgVCh14CbauON=mCJTvCn+4Gu6D+3dp5scDENg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGEauyQ78jjGtgVCh14CbauON=mCJTvCn+4Gu6D+3dp5scDENg@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org
+	See http://www.infradead.org/rpr.html
+
+On Tue, May 08, 2012 at 08:08:20PM +0800, Yunkai Zhang wrote:
+> > Also is there any good reason to have the wrapper here? ?The comment
+> > doesn't seem very helpful anymore either.
+> >
+> I just want to use this function's name so that it can keep consistent
+> with work.done, maybe I can assign do_cluster_request to work.done
+> directly?
+
+See the below patch for what I meant.  Note the uncommented assert
+in do_cluster_op which would fail if it was enabled.
+
+
+---
+ sheep/group.c      |   10 ++++++----
+ sheep/sdnet.c      |    8 --------
+ sheep/sheep_priv.h |    1 -
+ 3 files changed, 6 insertions(+), 13 deletions(-)
+
+Index: sheepdog/sheep/group.c
+===================================================================
+--- sheepdog.orig/sheep/group.c	2012-05-08 16:48:20.435975071 +0200
++++ sheepdog/sheep/group.c	2012-05-08 16:51:33.327973227 +0200
+@@ -238,6 +238,12 @@ int get_nr_copies(struct vnode_info *vno
+ 	return min(vnode_info->nr_zones, sys->nr_copies);
+ }
+ 
++/*
++ * Perform a blocked cluster operation.
++ *
++ * Must run in the main thread as it access unlocked state like
++ * sys->pending_list.
++ */
+ static void do_cluster_op(void *arg)
+ {
+ 	struct vdi_op_message *msg = arg;
+@@ -245,6 +251,8 @@ static void do_cluster_op(void *arg)
+ 	struct request *req;
+ 	void *data;
+ 
++//	assert(is_main_thread());
++
+ 	req = list_first_entry(&sys->pending_list, struct request, pending_list);
+ 
+ 	if (has_process_main(req->op))
+@@ -258,13 +266,21 @@ static void do_cluster_op(void *arg)
+ 	msg->rsp.result = ret;
+ }
+ 
+-void do_cluster_request(struct work *work)
++/*
++ * Execute a cluster operation by letting the cluster driver send it to all
++ * nodes in the cluster.
++ *
++ * Must run in the main thread as it access unlocked state like
++ * sys->pending_list.
++ */
++static void do_cluster_request(struct request *req)
+ {
+-	struct request *req = container_of(work, struct request, work);
+-	struct sd_req *hdr = (struct sd_req *)&req->rq;
++	struct sd_req *hdr = &req->rq;
+ 	struct vdi_op_message *msg;
+ 	size_t size;
+ 
++	assert(is_main_thread());
++
+ 	eprintf("%p %x\n", req, hdr->opcode);
+ 
+ 	if (has_process_main(req->op))
+@@ -671,11 +687,19 @@ static void __sd_notify_done(struct even
+ 	req_done(req);
+ }
+ 
++/*
++ * Pass on a notification message from the cluster driver.
++ *
++ * Must run in the main thread as it access unlocked state like
++ * sys->pending_list.
++ */
+ void sd_notify_handler(struct sd_node *sender, void *msg, size_t msg_len)
+ {
+ 	struct event_struct *cevent;
+ 	struct work_notify *w;
+ 
++	assert(is_main_thread());
++
+ 	dprintf("size: %zd, from: %s\n", msg_len, node_to_str(sender));
+ 
+ 	w = zalloc(sizeof(*w));
+@@ -1085,8 +1109,16 @@ static void process_request_queue(void)
+ 				queue_work(sys->io_wqueue, &req->work);
+ 			else
+ 				queue_work(sys->gateway_wqueue, &req->work);
+-		} else /* (is_cluster_op(req->op) || is_local_op(req->op)) */
++		} else if (is_cluster_op(req->op)) {
++			/*
++			 * Cluster requests are handed off to the cluster driver
++			 * directly from the main thread.  It's the cluster
++			 * drivers job to ensure we avoid blocking on I/O here.
++			 */
++			do_cluster_request(req);
++		} else { /* is_local_op(req->op) */
+ 			queue_work(sys->io_wqueue, &req->work);
++		}
+ 	}
+ }
+ 
+Index: sheepdog/sheep/sdnet.c
+===================================================================
+--- sheepdog.orig/sheep/sdnet.c	2012-05-08 16:48:20.435975071 +0200
++++ sheepdog/sheep/sdnet.c	2012-05-08 16:50:33.583973798 +0200
+@@ -171,11 +171,6 @@ static void local_op_done(struct work *w
+ 	req_done(req);
+ }
+ 
+-static void cluster_op_done(struct work *work)
+-{
+-	/* request is forwarded to cpg group */
+-}
+-
+ static void do_local_request(struct work *work)
+ {
+ 	struct request *req = container_of(work, struct request, work);
+@@ -322,8 +317,7 @@ static void queue_request(struct request
+ 		req->work.fn = do_local_request;
+ 		req->work.done = local_op_done;
+ 	} else if (is_cluster_op(req->op)) {
+-		req->work.fn = do_cluster_request;
+-		req->work.done = cluster_op_done;
++		/* directly executed in the main thread */;
+ 	} else {
+ 		eprintf("unknown operation %d\n", hdr->opcode);
+ 		rsp->result = SD_RES_SYSTEM_ERROR;
+Index: sheepdog/sheep/sheep_priv.h
+===================================================================
+--- sheepdog.orig/sheep/sheep_priv.h	2012-05-08 16:48:20.435975071 +0200
++++ sheepdog/sheep/sheep_priv.h	2012-05-08 16:48:42.647974855 +0200
+@@ -274,7 +274,6 @@ int forward_write_obj_req(struct request
+ 
+ int read_epoch(uint32_t *epoch, uint64_t *ctime,
+ 	       struct sd_node *entries, int *nr_entries);
+-void do_cluster_request(struct work *work);
+ 
+ int update_epoch_store(uint32_t epoch);
+ int update_epoch_log(uint32_t epoch);

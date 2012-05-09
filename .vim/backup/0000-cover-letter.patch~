@@ -1,0 +1,50 @@
+From b0731ba45a5b1b34db308b4424ea4e78fa82774b Mon Sep 17 00:00:00 2001
+From: Yunkai Zhang <qiushu.zyk@taobao.com>
+Date: Thu, 26 Apr 2012 23:01:36 +0800
+Subject: [zookeeper][PATCH v2 00/11] INTRODUCE
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+I refactor zookeeper driver with following patches.
+
+Features:
+- all operations are lock free
+- support more than 1000 nodes
+- optimize the size of message
+- using zookeeper more efficiently 
+
+These patches have been tested for several weeks in our
+100 physical machines, we startup 10 sheep processes in each
+machine to simulate 1000 nodes, it works nicely for us.
+
+At this time, accord is not stable enough for us, this new
+zookeeper driver maybe a good alternative.
+
+Rebasing these patches is too difficult, hope it can be merged
+as soon as quickly, so that we can imporve it more easily in
+the future.
+
+Yunkai Zhang (11):
+  Refactor zookeeper driver
+  Optimize the size of buffer send to zookeeper
+  retry again when zoo_* api return ZCONNECTIONLOSS/ZOPERATIONTIMEOUT
+    error
+  Fix two bug:
+  Use atomic builtins to replace pthread mutex locks
+  Rewatch znode in /sheepdog/member after it changed
+  If previous zookeeper session exists, shutdown sheep
+  Add code to handle sequence number overflow
+  Fix bug: zk_leave doesn't work
+  Fix bug: leave event lost in zookeeper driver
+  Remove zk_lock from zk_join
+
+ include/net.h             |    1 +
+ lib/net.c                 |   14 +
+ sheep/cluster.h           |   34 +++-
+ sheep/cluster/zookeeper.c |  677 ++++++++++++++++++++++++++++++++++-----------
+ 4 files changed, 559 insertions(+), 167 deletions(-)
+
+-- 
+1.7.7.6
+

@@ -1,0 +1,7 @@
+set	postmaster Yunkai
+poll	imap.gmail.com protocol IMAP 
+	user "yunkai.me@gmail.com" is Yunkai here
+	password '12EBCD8zyk'
+	folder 'Sheepdog'
+	keep
+	ssl
