@@ -2,6 +2,26 @@ Coding for Dream
 ================
 Yunkai Zhang <yunkai.me@gmail.com>
 
+Some Projects I foucs
+---------------------
+
+Sheepdog
+~~~~~~~~
+https://github.com/collie/sheepdog/wiki[Sheepdog] is a distributed storage
+system which have been used in taobao.com.
+
+- git://github.com/collie/sheepdog.git
+
+Corosync
+~~~~~~~~
+http://www.corosync.org[Corosync] is a Group Communication System with
+additional features for implementing high availability within applications.
+
+Sheepdog uses Corosync as its distributed communication system.
+
+- git clone git://github.com/corosync/corosync.git
+
+
 My favorite tools
 -----------------
 
