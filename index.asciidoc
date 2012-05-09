@@ -16,7 +16,6 @@ Corosync
 ~~~~~~~~
 http://www.corosync.org[Corosync] is a Group Communication System with
 additional features for implementing high availability within applications.
-
 Sheepdog uses Corosync as its distributed communication system.
 
 - git clone git://github.com/corosync/corosync.git
@@ -41,3 +40,9 @@ writing slideshows
 NOTE: asciidoc depends on docbook-dtds, before compile it we should: +
 yum install docbook-dtds
 
+Who am I
+--------
+A linux programer working at taobao.com. +
+
+You can get more information from my
+https://plus.google.com/114670895059846153591/about[Google+].
