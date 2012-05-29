@@ -917,24 +917,31 @@ yum install docbook-dtds</td>
 <h2 id="_weekly_reports">Weekly Reports</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_仇恕周报_2012_05_11_2012_05_17">仇恕周报(2012.05.11-2012.05.17)</h3>
+<h3 id="_仇恕周报_2012_05_18_2012_05_24">仇恕周报(2012.05.18-2012.05.24)</h3>
 <div class="sect3">
 <h4 id="_本周工作">本周工作</h4>
 <div class="ulist"><ul>
 <li>
 <p>
-asdfasf
+解决zookeeper在master transfer下的bug
 </p>
 </li>
 <li>
 <p>
-sdfasfa
+vmms管理系统基本理顺，多个接口经过了测试，剩下两个问题：
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+opsfree新版api有问题，与令侃进行了沟通，他们力争周五下午解决
 </p>
 </li>
 <li>
 <p>
-asdfasfas
+vm在opstest下创建快照/执行克隆均成功，但今晚在kvm134001下无法执行这些命令，libvirtd会崩溃退出，力争周五解决
 </p>
+</li>
+</ul></div>
 </li>
 </ul></div>
 </div>
@@ -943,12 +950,60 @@ asdfasfas
 <div class="ulist"><ul>
 <li>
 <p>
-讨论sheepdog自动测试方案
+回归sheepdog开发
 </p>
 </li>
 <li>
 <p>
-投入到sheepdog管理系统的开发中
+完善vmms可能存在的问题
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_仇恕周报_2012_05_11_2012_05_17">仇恕周报(2012.05.11-2012.05.17)</h3>
+<div class="sect3">
+<h4 id="_本周工作_2">本周工作</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+细粒度flush object cache的patch已经合并
+</p>
+</li>
+<li>
+<p>
+讨论sys&#8594;pending_list冲突的解决方案，已经解决
+</p>
+</li>
+<li>
+<p>
+去除unregister_event，提速事件处理速度，patch已达v4，几乎已经解决
+</p>
+</li>
+<li>
+<p>
+review zookeeper相关的代码
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_下周工作_2">下周工作</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+编写自动化测试case
+</p>
+</li>
+<li>
+<p>
+修复zookeeper在master transfer下的bug
+</p>
+</li>
+<li>
+<p>
+继续解决sheep在read状态下block住的问题
 </p>
 </li>
 </ul></div>
@@ -957,7 +1012,7 @@ asdfasfas
 <div class="sect2">
 <h3 id="_仇恕周报_2012_05_04_2012_05_10">仇恕周报(2012.05.04-2012.05.10)</h3>
 <div class="sect3">
-<h4 id="_本周工作_2">本周工作</h4>
+<h4 id="_本周工作_3">本周工作</h4>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -994,7 +1049,7 @@ Rebase了一个让sheep在flush cache时更细粒度的patch，社区未见反�
 </ul></div>
 </div>
 <div class="sect3">
-<h4 id="_下周工作_2">下周工作</h4>
+<h4 id="_下周工作_3">下周工作</h4>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -1023,7 +1078,7 @@ Rebase了一个让sheep在flush cache时更细粒度的patch，社区未见反�
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-05-17 20:08:52 CST
+Last updated 2012-05-24 23:36:04 CST
 </div>
 </div>
 </body>
