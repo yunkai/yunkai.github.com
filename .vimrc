@@ -47,8 +47,8 @@ highlight StatusLineNC guifg=Gray guibg=White
 " 文件设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 备份文件（根据自己需要取舍）
-set backup
-set backupdir=~/.vim/backup
+" set backup
+" set backupdir=~/.vim/backup
 
 " 不要生成swap文件，当buffer被丢弃的时候隐藏它
 " setlocal noswapfile
@@ -137,7 +137,7 @@ set smartindent
 
 " 使用C样式的缩进
 set cindent
-set cino=:0
+set cino=:0,(0,t0
 
 " 制表符为8
 set tabstop=8

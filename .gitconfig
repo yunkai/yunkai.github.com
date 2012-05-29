@@ -16,3 +16,5 @@
 	quotepath = false
 [format]
 	signoff = true
+[color]
+	ui = always

@@ -1,5 +1,5 @@
 #===Begin .screenrc===
-unsetenv DISPLAY
+#unsetenv DISPLAY
 autodetach            on              # default: on
 crlf                  off             # default: off
 deflogin              off             # default: on
