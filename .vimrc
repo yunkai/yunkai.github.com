@@ -210,10 +210,10 @@ au BufRead,BufNewFile *.viki set ft=viki
 set nocscopeverbose
 
 " reset cscope & ctags
-map \cs :!cscope -Rb<CR><CR>:cs reset<CR>:!ctags -R<CR><CR>
+map \cs :!rm -f cscope.out<CR>:cs kill -1<CR>:!cscope -Rb<CR><CR>:cs add cscope.out<CR>:!ctags -R<CR><CR>
 
 " open my asciidoc wiki
-map \wi :e ~/Pages/index.asciidoc<CR>
+map \wi :e ~/Pages/weekly_reports.asciidoc<CR>
 
 " convert asciidoc files to html
 map \wh :!asciidoc -a toc2 -a theme=flask ~/Pages/*.asciidoc<CR>

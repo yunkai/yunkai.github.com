@@ -39,53 +39,8 @@ writing slideshows
 NOTE: asciidoc depends on docbook-dtds, before compile it we should: +
 yum install docbook-dtds
 
-Weekly Reports
---------------
-
-仇恕周报(2012.05.18-2012.05.24)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-本周工作
-^^^^^^^^
-* 解决zookeeper在master transfer下的bug
-* vmms管理系统基本理顺，多个接口经过了测试，剩下两个问题：
- - opsfree新版api有问题，与令侃进行了沟通，他们力争周五下午解决
- - vm在opstest下创建快照/执行克隆均成功，但今晚在kvm134001下无法执行这些命令，libvirtd会崩溃退出，力争周五解决
-
-下周工作
-^^^^^^^^
-* 回归sheepdog开发
-* 完善vmms可能存在的问题
-
-仇恕周报(2012.05.11-2012.05.17)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-本周工作
-^^^^^^^^
-* 细粒度flush object cache的patch已经合并
-* 讨论sys->pending_list冲突的解决方案，已经解决
-* 去除unregister_event，提速事件处理速度，patch已达v4，几乎已经解决
-* review zookeeper相关的代码
-
-下周工作
-^^^^^^^^
-* 编写自动化测试case
-* 修复zookeeper在master transfer下的bug
-* 继续解决sheep在read状态下block住的问题
-
-仇恕周报(2012.05.04-2012.05.10)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-本周工作
-^^^^^^^^
-* 向社区提交了几个patch，解决以下三个问题：
- - 引入Userspace RCU, 以解决vnode_info读写冲突的问题，hellwig欲采用另一种方法解决，两各方法我都可以接受，等待社区确定其中一种方案
- - 提交了一个patch以解决sys->pending_list读写冲突的问题，hellwig也对此提出他的解法，等候他的新patch
- - Rebase了一个让sheep在flush cache时更细粒度的patch，社区未见反馈
-* 分析sheep在重io情况下leave事件的处理出现时延很长的现象，暂未找到根本原因
-* 测试sheep在有数据的情况下，shutdown得重启的过程，测试结果明天出来
-
-下周工作
-^^^^^^^^
-* 讨论sheepdog自动测试方案
-* 投入到sheepdog管理系统的开发中
+link:weekly_reports.html[Weekly Reports]
+---------------------------------------------------------------
 
 Who am I
 --------
