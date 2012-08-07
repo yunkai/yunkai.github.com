@@ -1,0 +1,9 @@
+#! /bin/bash
+
+title_prefix="dev|"
+title_list="vmmsd serv src test sql mysql tmp"
+log_script=""
+
+for i in $title_list; do
+    open-terminal-tab ${title_prefix}$i ${log_script};
+done

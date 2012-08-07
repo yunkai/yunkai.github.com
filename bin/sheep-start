@@ -1,0 +1,25 @@
+#! /bin/bash
+
+begin_idx=0
+end_idx=0
+
+#drv="-c zookeeper:127.0.0.1:2181"
+drv=
+
+if [ $# -eq 1 ]; then
+	begin_idx=$1
+	end_idx=$1
+elif [ $# -ge 2 ]; then
+	begin_idx=$1
+	end_idx=$2
+fi
+
+if [ $# -le 1 ]; then
+	echo Start [$begin_idx] sheep ...
+else
+	echo Start [${begin_idx}..${end_idx}] sheep ...
+fi
+for i in `seq $begin_idx $end_idx`; do
+	sheep -d ~/store/$i -z $i -p $((7000 + $i)) $drv;
+done
+sleep 1

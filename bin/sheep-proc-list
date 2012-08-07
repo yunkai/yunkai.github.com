@@ -1,0 +1,4 @@
+#! /bin/bash
+
+echo Sheep process list:
+ps -ef | grep 'sheep -d' | grep -v grep | sed -n 's/^.*:[0-9][0-9] //p' | sort -u

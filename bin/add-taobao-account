@@ -1,0 +1,1 @@
+curl --digest -u tbops:+m04ccBZt "http://account.tbsite.net:9999/api/websubmits?user=qiushu.zyk&host=xendev097101.sqa.cm4&submitby=luopeng.lp&sudo=yes"

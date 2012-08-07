@@ -1,0 +1,14 @@
+#! /usr/bin/expect 
+
+#--------------------------#
+# 以下脚本实现自动登录功能 #
+#--------------------------#
+
+#set abc [lindex $argv 2] #获取第2个参数
+
+set psw "020135180259\r"
+
+spawn ssh qiushu.zyk@xendev097102.sqa.cm4.tbsite.net
+expect "*assword: "
+send  "$psw"
+interact

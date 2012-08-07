@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#-----------------------------#
+# 以下脚本模拟键盘的操作      #
+#-----------------------------#
+
+title=$1
+login_shell=$2
+
+#获取某程序的window id
+WID=`xdotool getwindowfocus`
+
+#聚焦到该窗口
+xdotool windowfocus $WID
+
+#key  模拟按键操作
+#type 执行填写操作
+#Return 指回车符
+xdotool key ctrl+t 
+#sleep 0.2s
+xdotool key alt+t 
+sleep 0.2s
+xdotool key Return
+sleep 0.2s
+xdotool type $title 
+#sleep 0.1s
+xdotool key Return
+sleep 0.4s
+xdotool type $login_shell 
+xdotool key Return
+

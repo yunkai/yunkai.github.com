@@ -1,0 +1,19 @@
+#! /bin/bash
+
+begin_idx=0
+end_idx=0
+
+if [ $# -eq 1 ]; then
+	begin_idx=$1
+	end_idx=$1
+elif [ $# -ge 2 ]; then
+	begin_idx=$1
+	end_idx=$2
+fi
+
+echo Epoch list:
+for i in `ls ~/store`; do
+	printf "[%2d epoch]: " $i
+	echo `ls ~/store/$i/epoch`
+done
+sleep 1

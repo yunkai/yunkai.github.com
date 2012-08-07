@@ -1,0 +1,18 @@
+#! /bin/bash
+
+begin_idx=0
+end_idx=0
+
+if [ $# -eq 1 ]; then
+	begin_idx=$1
+	end_idx=$1
+elif [ $# -ge 2 ]; then
+	begin_idx=$1
+	end_idx=$2
+fi
+
+echo Clear all sheepdogs ...
+ps -ef | grep 'sheep -d' | grep -v grep | awk '{print $2}' | xargs kill -9 2>/dev/null
+rm -rf ~/store/*
+sheep-proc-list
+sleep 1

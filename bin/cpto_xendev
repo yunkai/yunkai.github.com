@@ -1,0 +1,16 @@
+#! /usr/bin/expect 
+
+#--------------------------#
+# 以下脚本实现自动登录功能 #
+#--------------------------#
+
+#set abc [lindex $argv 2] #获取第2个参数
+
+set psw "020135180259\r"
+set from    [lindex $argv 0]
+set to      [lindex $argv 1]
+
+spawn scp $from qiushu.zyk@opstest097104.sqa.cm4.tbsite.net:$to
+expect "*assword: "
+send  "$psw"
+interact

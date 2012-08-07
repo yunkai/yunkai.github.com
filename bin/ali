@@ -1,0 +1,120 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+import simplejson, urllib, urllib2
+import getopt
+
+DEFAULT_MODE = 0
+LIST_MODE = 1
+SUMMARY_MODE = 2
+EXPR_MODE = 3
+
+manifest = {
+    "appointment": { "title": "职位"},
+    "department": { "title": "部门"},
+    "displayname": { "title": "花名", "deco": "\033[33;1m"},
+    "mail": { "title": "邮件", "deco": "\033[36;1m"},
+    "mobile": { "title": "手机" },
+    "name": { "title": "姓名" },
+    "sex": { "title": "性别"},
+    "wangwang": { "title": "旺旺"},
+    "workid": { "title": "工号" },
+    "workphone": { "title": "办公电话", "deco": "\033[34;1m" },
+    "workplace": { "title": "办公地点" },
+    "superiorname": { "title": "主管" },
+}
+
+def print_detail(detail, mode, expr):
+    if mode == DEFAULT_MODE:
+
+        # fix empty option
+        for name in manifest.keys():
+            if not name in detail:
+                detail[name] = "n/a"
+            elif name == "workphone":
+                n = detail["workphone"]
+                detail["workphone"] = n[:3] + "-" + n[3:]
+            detail[name] = detail[name].replace("&amp;", "&")
+
+        output = u"""  \033[38;05;223m%(department)s - %(workplace)s - \033[38;05;224m#%(workid)s
+
+  \t\t\t\033[38;05;210m%(name)s\033[38;05;122m(%(displayname)s) \033[38;05;244m%(appointment)s
+\033[38;05;248m
+  电话：%(workphone)s\r\t\t\t旺旺：%(wangwang)s\t邮箱：
+  手机：%(mobile)s\r\t\t\t主管：%(superiorname)s\t%(mail)s""" % detail
+
+        print output.encode("utf-8")
+
+    elif mode == SUMMARY_MODE:
+        priority = "displayname wangwang workphone mail mobile superiorname department name appointment workplace workid"
+        for name in priority.split():
+            if not name in detail:
+                continue
+            value = detail[name]
+            if name in manifest:
+                if "title" in manifest[name]:
+                    title = manifest[name]["title"]
+                else:
+                    title = name
+                value = value.encode("utf-8")
+                if "deco" in manifest[name]:
+                    value = manifest[name]["deco"] + value + "\033[0;0m";
+                # html fix
+                value = value.replace("&amp;", "&")
+                print "\033[32;1m%s\033[0;0m: %s" % (title, value)
+    elif mode == LIST_MODE:
+        priority = "displayname wangwang workphone mail mobile superiorname department name appointment workplace workid"
+        for name in priority.split():
+            if not name in detail:
+                continue
+            value = detail[name]
+            if name in manifest:
+                if "title" in manifest[name]:
+                    title = manifest[name]["title"]
+                else:
+                    title = name
+                value = value.encode("utf-8")
+                if "deco" in manifest[name]:
+                    value = manifest[name]["deco"] + value + "\033[0;0m";
+                # html fix
+                value = value.replace("&amp;", "&")
+                print value,
+        print
+    elif mode == EXPR_MODE:
+        for name, value in manifest.items():
+            if not name in detail:
+                detail[name] = "none"
+        print expr % detail
+
+if __name__ == "__main__":
+    mode = DEFAULT_MODE
+    expr = None
+    opts, args = getopt.getopt(sys.argv[1:], "lse:", [""])
+    for o, a in opts:
+        if o in ["-l"]: mode = LIST_MODE
+        elif o in ["-s"]: mode = SUMMARY_MODE
+        elif o in ["-e"]:
+            mode = EXPR_MODE
+            expr = a
+    if mode == EXPR_MODE and expr == "help":
+        print "Expression Variables:"
+        for name, value in manifest.items():
+            print "\t",value["title"], ":", name
+        print
+        print "Example:\n\tali -e '%(wangwang)s %(name)s %(workphone)s' shiqian\n"
+        sys.exit(0)
+    query = " ".join(args)
+    print "Searching for", query, "(mode = %d)..." % mode,
+    sys.stdout.flush()
+    service = "http://10.13.4.102:6081/search/employee?"
+    service = service + urllib.urlencode({"q": query})
+    print "query:", query
+    print "url:", service
+    f = urllib2.urlopen(service)
+    details = simplejson.loads(f.read())
+    print "\r",
+    for detail in details:
+        print "\033[38;05;224m", "-" * 76, "\033[0;0;0m"
+        print_detail(detail, mode, expr)
+    print "\033[38;05;224m", "-" * 76, "\033[0;0;0m"

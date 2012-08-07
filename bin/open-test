@@ -1,0 +1,11 @@
+#! /bin/bash
+
+title_prefix="test|"
+title_list="bin serv tmp man test sql"
+
+j=1
+for i in $title_list; do
+
+    j=$(($j+1))
+    open-terminal-tab ${title_prefix}$i $j;
+done

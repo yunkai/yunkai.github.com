@@ -1,0 +1,18 @@
+#!/usr/bin/expect -f
+set IPaddress [lindex $argv 0]
+set Username "qiushu.zyk"
+set Password "020135180259"
+
+
+#copy wiki to jump-machine
+set wiki_patch "/home/yunkai/vimwiki_html/weekly_report.html"
+spawn scp $wiki_patch $Username@$IPaddress:~/
+expect "*assword: "
+send "$Password\r"
+interact
+
+#login jump-machine and do something
+spawn ssh -o "StrictHostKeyChecking no" $Username@$IPaddress
+expect "*assword: "
+send "$Password\r"
+interact

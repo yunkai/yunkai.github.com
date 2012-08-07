@@ -1,0 +1,9 @@
+#! /bin/bash
+
+title_prefix="xen|"
+title_list="root vmmsd serv src test mysql log tmp"
+log_script="lg-xendev097101.sqa.cm4"
+
+for i in $title_list; do
+    open-terminal-tab ${title_prefix}$i ${log_script};
+done

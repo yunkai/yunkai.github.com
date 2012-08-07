@@ -1,0 +1,9 @@
+#! /bin/bash
+
+title_prefix=""
+title_list="1sheep 2sheep 3sheep 4sheep sheep-host"
+log_script="lg-kvmdev097105.sqa.cm4"
+
+for i in $title_list; do
+    open-terminal-tab ${title_prefix}$i ${log_script};
+done
