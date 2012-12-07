@@ -196,6 +196,10 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 " 自动删除行尾空白字符(space,tab)
 autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+" 为不同的文件类型，设置特定的缩进风格
+autocmd FileType cpp	set expandtab softtabstop=2 shiftwidth=2
+autocmd FileType python set expandtab softtabstop=4 shiftwidth=4
+
 " color
 colorscheme elflord
 
@@ -209,8 +213,12 @@ au BufRead,BufNewFile *.viki set ft=viki
 " show msg when any other cscope db added
 set nocscopeverbose
 
-" reset cscope & ctags
-map \cs :!rm -f cscope.out<CR>:cs kill -1<CR>:!cscope -Rb<CR><CR>:cs add cscope.out<CR>:!ctags -R<CR><CR>
+" auto make install
+map <F8> :make -j4<CR>
+map <F9> :!sudo make install<CR>
+
+" reset cscope & ctags for c/c++
+map \cc :!rm -f cscope.out<CR>:cs kill -1<CR>:!cscope -Rb<CR><CR>:cs add cscope.out<CR>:!ctags -R<CR><CR>
 
 " open my asciidoc wiki
 map \wi :e ~/Pages/weekly_reports.asciidoc<CR>
