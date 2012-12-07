@@ -185,8 +185,10 @@ set gfn=Monospace\ 11
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 高亮显示普通txt文件（需要txt.vim脚本）
-au BufRead,BufNewFile *  setfiletype txt
+" 关联文件类型
+au BufRead,BufNewFile *.viki set ft=viki 
+au BufRead,BufNewFile *.gpl,*.gnuplot set ft=gnuplot
+
 
 " 用空格键来开关折叠
 set foldenable
@@ -206,9 +208,6 @@ colorscheme elflord
 " 超过80列的字符，自动高亮
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
-
-" viki
-au BufRead,BufNewFile *.viki set ft=viki 
 
 " show msg when any other cscope db added
 set nocscopeverbose
