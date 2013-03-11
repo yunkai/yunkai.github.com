@@ -10,6 +10,7 @@ defscrollback         10000           # default: 100
 msgminwait            0               # default: 1
 msgwait               0               # default: 5
 silencewait           15              # default: 30
+defmonitor            on              # default: off
 
 # 通过动态设置.bashrc的PROMPT_COMMAND，可以将screen登陆的机器名自动命名screen窗口上，
 # 在redhat下可通过修改bash-prompt-screen文件(取决于/etc/bashrc的解析方式)
