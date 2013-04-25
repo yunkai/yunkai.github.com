@@ -20,7 +20,7 @@ defmonitor            on              # default: off
 shelltitle '$ |bash'
 
 #caption always "%{+b yk}%H %{wk}|%c %{bk}%d.%m.%Y %{wk}| %{rk}%72=Load: %l%{wk}"
-hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%? %=%{..G} %{..Y} %d/%m %C%a"
+hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%? %=%{yk} %d/%m %C%a"
 sorendition    kG # black on bold green
 activity              "%C -> %n%f %t activity!"
 bell                  "%C -> %n%f %t bell!~"
