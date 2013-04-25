@@ -1,0 +1,32 @@
+#===Begin .screenrc===
+#unsetenv DISPLAY
+autodetach            on              # default: on
+crlf                  off             # default: off
+deflogin              off             # default: on
+hardcopy_append       on              # default: off
+startup_message       off             # default: on
+vbell                 off             # default: ???
+defscrollback         10000           # default: 100
+msgminwait            0               # default: 1
+msgwait               0               # default: 5
+silencewait           15              # default: 30
+defmonitor            on              # default: off
+
+# 通过动态设置.bashrc的PROMPT_COMMAND，可以将screen登陆的机器名自动命名screen窗口上，
+# 在redhat下可通过修改bash-prompt-screen文件(取决于/etc/bashrc的解析方式)
+# cat /etc/sysconfig/bash-prompt-screen 
+# #!/bin/bash
+# echo -n -e "\033k`uname -n`\033\\"
+shelltitle '$ |bash'
+
+#caption always "%{+b yk}%H %{wk}|%c %{bk}%d.%m.%Y %{wk}| %{rk}%72=Load: %l%{wk}"
+hardstatus alwayslastline "%?%{ky}%-Lw%?%{bw}%n*%f %t%?(%u)%?%?%{ky}%+Lw%? %=%{ky} %d/%m %C%a"
+sorendition    kG # black on bold green
+activity              "%C -> %n%f %t activity!"
+bell                  "%C -> %n%f %t bell!~"
+pow_detach_msg        "BYE"
+vbell_msg             " *beep* "
+
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+#===End .screenrc===
