@@ -9,7 +9,7 @@ fi
 export TERM=screen
 
 # Use keychain to manager ssh-agent
-eval `keychain --eval id_dsa id_dsa.taobao id_dsa.console`
+eval `keychain --quiet --eval id_dsa id_dsa.taobao id_dsa.console`
 
 # For screen prompt
 echo -n -e "\033k`uname -n`\033\\"
