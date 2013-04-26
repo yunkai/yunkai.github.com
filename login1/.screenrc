@@ -21,7 +21,7 @@ shelltitle '$ |bash'
 
 #caption always "%{+b yk}%H %{wk}|%c %{bk}%d.%m.%Y %{wk}| %{rk}%72=Load: %l%{wk}"
 #-------------------------|right windows|current win| users |left windows| pading and time    |
-hardstatus alwayslastline "%?%{ky}%-Lw%?%{bw}%n*%f %t%?(%u)%?%?%{ky}%+Lw%? %=%{ky} %c %d/%m/%Y"
+hardstatus alwayslastline "%?%{ky}%-Lw%?%{bw}%n*%f %t%?(%u)%?%?%{ky}%+Lw%? %=%{ky} @H %c %d/%m/%Y"
 sorendition    kG # black on bold green
 activity              "%C -> %n%f %t activity!"
 bell                  "%C -> %n%f %t bell!~"
