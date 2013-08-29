@@ -209,6 +209,9 @@ colorscheme elflord
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
+" 120 bytes per line in TrafficServer cpp file
+" autocmd FileType cpp match OverLength /\%121v.\+/
+
 " show msg when any other cscope db added
 set nocscopeverbose
 
