@@ -137,7 +137,7 @@ set smartindent
 
 " 使用C样式的缩进
 set cindent
-set cino=:0,(0,t0
+set cino=:0,l1,g0,t0,(0,b0
 
 " 制表符为8
 set tabstop=8
