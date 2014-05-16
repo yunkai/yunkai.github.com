@@ -1,0 +1,3 @@
+#!/bin/bash
+HOSTNAME=`uname -n`
+echo -n -e "\033k${HOSTNAME}\033\\"
