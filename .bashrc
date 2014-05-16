@@ -6,6 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific aliases and functions
+alias screen="screen -d -RR yunkai"
 
 export PERL_LOCAL_LIB_ROOT="/home/yunkai/perl5";
 export PERL_MB_OPT="--install_base /home/yunkai/perl5";
