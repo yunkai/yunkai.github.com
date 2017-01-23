@@ -1,6 +1,6 @@
 [user]
 	name = Yunkai Zhang
-	email = qiushu.zyk@taobao.com
+	email = yunkai.me@gmail.com
 [sendemail]
 	smtpencryption = tls 
 	smtpserverport = 587
@@ -19,5 +19,5 @@
 [color]
 	ui = always
 [http]
-	proxy = 127.0.0.1:8087
+	proxy = 127.0.0.1:1080
 	sslVerify = false
